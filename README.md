@@ -21,3 +21,11 @@ For hotreloading:
 gem install rerun
 rerun 'ruby app.rb'
 ```
+
+---
+
+Setup/run tests:
+```
+gem install rspec rack-test
+rspec
+```
