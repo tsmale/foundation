@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'sparql/client'
+require 'json'
 
 def query_builder(search_type, search_term)
   prefix = "
@@ -28,9 +29,7 @@ end
 def format_results(results)
   array = []
   results.each_entry do |result|
-    result.each_binding do |name, value|
-      puts value
-    end
+    array << result.bindings.values[0].to_s.sub('http://dbpedia.org/resource/','')
   end
   return array
 end
@@ -41,4 +40,5 @@ get '/' do
   search_term = params[search_type]
 
   result = format_results(query(query_builder(search_type, search_term)))
+  return result.to_json
 end
