@@ -40,14 +40,14 @@ get '/' do
   types = ['actor', 'film']
   search_type = params.keys[0]
   search_term = params[search_type]
+  cache_key = search_type + search_term
 
   if not types.include?(search_type)
     return 'Invalid search type, expected "film" or "actor"'
   end
 
-  if $cache.key?(search_term)
-    puts 'Cache hit!'
-    response = $cache[search_term]
+  if $cache.key?(cache_key)
+    response = $cache[cache_key]
   else
     result = format_results(query(query_builder(search_type, search_term)))
 
@@ -55,7 +55,7 @@ get '/' do
     response_term = (types.select { |t| t != search_type })[0] + 's'
     response = { response_term => result }.to_json
 
-    $cache[search_term] = response
+    $cache[cache_key] = response
   end
 
   return response
