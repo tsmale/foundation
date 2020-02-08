@@ -34,11 +34,15 @@ def format_results(results)
   return array
 end
 
-
 get '/' do
+  types = ['actor', 'film']
   search_type = params.keys[0]
   search_term = params[search_type]
 
   result = format_results(query(query_builder(search_type, search_term)))
-  return result.to_json
+
+  # Select opposite search type for response, pluralised
+  response_term = (types.select { |t| t != search_type })[0] + 's'
+
+  return { response_term => result }.to_json
 end
