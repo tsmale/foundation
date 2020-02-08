@@ -2,6 +2,8 @@ require 'sinatra'
 require 'sparql/client'
 require 'json'
 
+$cache = {}
+
 def query_builder(search_type, search_term)
   prefix = "
     PREFIX dbo: <http://dbpedia.org/ontology/>
@@ -43,10 +45,18 @@ get '/' do
     return 'Invalid search type, expected "film" or "actor"'
   end
 
-  result = format_results(query(query_builder(search_type, search_term)))
+  if $cache.key?(search_term)
+    puts 'Cache hit!'
+    response = $cache[search_term]
+  else
+    result = format_results(query(query_builder(search_type, search_term)))
 
-  # Select opposite search type for response, pluralised
-  response_term = (types.select { |t| t != search_type })[0] + 's'
+    # Select opposite search type for response, pluralised
+    response_term = (types.select { |t| t != search_type })[0] + 's'
+    response = { response_term => result }.to_json
 
-  return { response_term => result }.to_json
+    $cache[search_term] = response
+  end
+
+  return response
 end
