@@ -39,6 +39,10 @@ get '/' do
   search_type = params.keys[0]
   search_term = params[search_type]
 
+  if not types.include?(search_type)
+    return 'Invalid search type, expected "film" or "actor"'
+  end
+
   result = format_results(query(query_builder(search_type, search_term)))
 
   # Select opposite search type for response, pluralised
