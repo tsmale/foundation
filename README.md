@@ -1,3 +1,9 @@
+This branch will auto-deploy to Heroku if rspec tests pass:
+
+`curl https://foundation-14.herokuapp.com/?film=Top_Gun`
+
+---
+
 Install Ruby 2.7.0 (if not already available):
 
 `rbenv install`
