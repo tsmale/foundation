@@ -1,0 +1,19 @@
+name: test
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby 2.7
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.7.0
+    - name: Build and test with rspec
+      run: |
+        gem install sinatra thin sparql-client json rspec rack-test
+        rspec
