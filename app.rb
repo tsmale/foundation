@@ -42,7 +42,7 @@ end
 
 get '/' do
   if params.empty?
-    return ''
+    return 'Hello AWS!'
   end
 
   search_type = params.keys[0]
