@@ -8,9 +8,12 @@ Install Ruby 2.7.0 (if not already available):
 
 `rbenv install`
 
-Install gems:
+Install bundler and gems:
 
-`gem install sinatra thin sparql-client json`
+```
+gem install bundler
+bundle install
+```
 
 Run:
 
@@ -30,8 +33,7 @@ rerun 'ruby app.rb'
 
 ---
 
-Setup/run tests:
+Run tests:
 ```
-gem install rspec rack-test
 rspec
 ```
