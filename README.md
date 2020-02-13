@@ -44,3 +44,12 @@ To build and run, exposed to localhost:80:
 docker build .
 docker run -p 80:4567 -d <container_id>
 ```
+
+## Kubernetes
+
+```sh
+docker save foundation:v1 | (eval $(minikube docker-env) && docker load)
+kubectl create deployment foundation --image=foundation:v1
+kubectl get events
+kubectl expose deployment foundation --type=LoadBalancer --port=80
+```
