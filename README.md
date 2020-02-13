@@ -2,13 +2,12 @@ A simple POC Sinatra app for querying the [DBpedia](https://wiki.dbpedia.org/) e
 
 ---
 
-Install Ruby 2.7.0 (if not already available):
+## Setup/run locally
 
-`rbenv install`
+Install Ruby 2.7.0 and gems:
 
-Install bundler and gems:
-
-```
+```sh
+rbenv install
 gem install bundler
 bundle install
 ```
@@ -33,4 +32,15 @@ rerun 'ruby app.rb'
 Setup/run tests:
 ```
 rspec
+```
+
+---
+
+## Docker
+
+To build and run, exposed to localhost:80:
+
+```sh
+docker build .
+docker run -p 80:4567 -d <container_id>
 ```

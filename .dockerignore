@@ -1,0 +1,6 @@
+*.git*
+bundle/
+spec/
+README.md
+.ruby-version
+Dockerfile

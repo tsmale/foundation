@@ -4,6 +4,8 @@ require 'sinatra'
 require 'sparql/client'
 require 'json'
 
+set :bind, '0.0.0.0'
+
 $cache = {}
 
 helpers do
