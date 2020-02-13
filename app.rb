@@ -23,7 +23,7 @@ helpers do
         ?film dbo:starring dbr:#{search_term} .
       }
     "
-    prefix + (search_type == 'film' ? film_query : actor_query)
+    query = prefix + (search_type == 'film' ? film_query : actor_query)
   end
 
   def query(query)
@@ -32,11 +32,11 @@ helpers do
   end
 
   def format_results(results)
-    array = []
+    results_array = []
     results.each_entry do |result|
-      array << result.bindings.values[0].to_s.sub('http://dbpedia.org/resource/', '')
+      results_array << result.bindings.values[0].to_s.sub('http://dbpedia.org/resource/', '')
     end
-    return array
+    return results_array
   end
 end
 
@@ -59,11 +59,11 @@ get '/' do
     result = format_results(query(query_builder(search_type, search_term)))
 
     # Get the opposite search type for response and pluralise it
-    response_term = (types.reject { |t| t == search_type })[0] + 's'
-    response = { response_term => result }.to_json
+    response_type = (types.reject { |t| t == search_type })[0] + 's'
+    response = { response_type => result }.to_json
 
     $cache[cache_key] = response
   end
 
-  return response
+  response
 end
