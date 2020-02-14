@@ -1,4 +1,4 @@
-FROM ruby:2.7.0
+FROM ruby:2.7.0-slim
 
 COPY . $HOME/app
 WORKDIR $HOME/app
